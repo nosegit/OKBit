@@ -1,34 +1,35 @@
-namespace OKbit{
-
-// ----------------------- ADC128S102 -----------------------
-
-    let spi_mosi = 15, spi_miso =  14, spi_sck = 13, spi_cs = 16
-
-    //% blockId = ADC_INIT
-    //% block="AnalogInitial"
+namespace OKBit{
+    export import ADC = ADC128S102;
+    /**
+     * Initialize ADC IC
+     */
+    //% block ="ADC: initialization"
     export function AnalogInitial(): void{
-        pins.spiPins(spi_mosi,spi_miso,spi_sck);
-        pins.spiFormat(8,2);
-        pins.spiFrequency(16000000);
+        ADC.AnalogInitial();
     }
 
-    //% blockId = ADC_READ
-    //% block="AnalogRead $channel"
+    /**
+     * Read ADC channel and return value
+     * @param ADC channel (0-7)
+     * @returns ADC value (0-4095)@12bits
+     */
+    //% block ="ADC: Read"
     //% channel.min=0 channel.max=7
-    export function AnalogRead(channel : number): int16{
-
-        let control = pins.createBuffer(1)
-        control[0] = channel<<3
-
-        pins.digitalWritePin(spi_cs,0)
-
-        let high_buffer = pins.createBuffer(1)
-        let low_buffer = pins.createBuffer(1)
-        pins.spiTransfer(control,high_buffer)
-        pins.spiTransfer(null, low_buffer)
-
-        pins.digitalWritePin(spi_cs, 1)
-        return (high_buffer[0]<<8) | low_buffer[0]
+    export function AnalogRead(channel: number): number{
+        return ADC.AnalogRead(channel);
     }
+
+    /**
+     * Read ADC channel and return voltage
+     * @param ADC channel (0-7)
+     * @returns ADC voltage (0-3.3V)
+     */
+    //% block ="ADC: ReadVoltage"
+    //% channel.min=0 channel.max=7
+    export function AnalogReadVolatage(channel: number):number{
+        return ADC.AnalogReadVolatage(channel);
+    }
+
+
 
 }
