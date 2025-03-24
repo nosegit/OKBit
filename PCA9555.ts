@@ -1,6 +1,17 @@
 namespace PCA9555{
 
-    enum command{
+    export enum Address{
+        Addr_0x20 = 0x20,
+        Addr_0x21,
+        Addr_0x22,
+        Addr_0x23,
+        Addr_0x24,
+        Addr_0x25,
+        Addr_0x26,
+        Addr_0x27
+    }
+
+    enum Command{
         input_port0 = 0,
         input_port1,
         output_port0,
@@ -11,18 +22,16 @@ namespace PCA9555{
         config_port1
     }
 
-    enum pin_mode{
-        output = 0,
-        input
+    export enum PinMode{
+        Output = 0,
+        Input
     }
 
-    enum pin_output{
-        low = 0,
-        high
+    export enum PinOutput{
+        Low = 0,
+        High
     }
 
-    let i2c_sca = DigitalPin.P19;
-    let i2c_sdl = DigitalPin.P20;
     let i2c_address = 0x20;
 
     let port0_mode = 0x00, port1_mode = 0x00;
@@ -41,63 +50,63 @@ namespace PCA9555{
         return pins.i2cReadNumber(i2c_address,NumberFormat.UInt8LE);
     }
 
-    export function init(address:number):void{
+    export function init(address: Address):void{
         i2c_address = address;
-        config_all_pin(command.config_port0, 0x00); // set all pin as output
-        config_all_pin(command.config_port1, 0x00); // set all pin as output
-        write_all_pin(command.output_port0,0x00); // write all pin as low
-        write_all_pin(command.output_port1, 0x00); // write all pin as low
+        config_all_pin(Command.config_port0, 0x00); // set all pin as output
+        config_all_pin(Command.config_port1, 0x00); // set all pin as output
+        write_all_pin(Command.output_port0,0x00); // write all pin as low
+        write_all_pin(Command.output_port1, 0x00); // write all pin as low
 
     }
-    export function config_all_pin(port:command, pin_byte:number):void{
+    export function config_all_pin(port:Command, pin_byte:number):void{
         write_register(port, pin_byte);
     }
 
-    export function config_single_pin(pin:number, mode:pin_mode):void{
+    export function config_single_pin(pin:number, mode:PinMode):void{
         if(pin < 8){
             port0_mode = (port0_mode & ~(1<<pin)) | (mode<<pin);
-            config_all_pin(command.config_port0, port0_mode)
+            config_all_pin(Command.config_port0, port0_mode)
         }
         else{
             pin = pin-8;
             port1_mode = (port1_mode & ~(1<<pin)) | (mode<<pin);
-            config_all_pin(command.config_port1, port1_mode)
+            config_all_pin(Command.config_port1, port1_mode)
         }
     }
 
-    export function write_all_pin(port:command, pin_byte:number):void{
+    export function write_all_pin(port:Command, pin_byte:number):void{
         write_register(port,pin_byte);
     }
 
-    export function write_single_pin(pin:number, output:pin_output):void{
+    export function write_single_pin(pin:number, output:PinOutput):void{
         if (pin < 8) {
             port0_output = (port0_output & ~(1 << pin)) | (output << pin);
-            write_all_pin(command.output_port0,port0_output);
+            write_all_pin(Command.output_port0,port0_output);
         }
         else {
             pin = pin - 8;
             port1_output = (port1_output & ~(1 << pin)) | (output << pin);
-            write_all_pin(command.output_port1, port1_output);
+            write_all_pin(Command.output_port1, port1_output);
         }
     }
 
-    export function read_all_pin(port:command):number{
+    export function read_all_pin(port:Command):number{
         return read_register(port);
     }
 
     export function read_single_pin(pin:number):number{
         if(pin < 8){
-            if( ((port0_mode>>pin)&0b1) == pin_mode.output ){
+            if( ((port0_mode>>pin)&0b1) == PinMode.Output ){
                 return -1;
             }
-            return (read_all_pin(command.input_port0)>>pin)&0b1;
+            return (read_all_pin(Command.input_port0)>>pin)&0b1;
         }
         else{
             pin = pin-8;
-            if (((port1_mode >> pin) & 0b1) == pin_mode.output) {
+            if (((port1_mode >> pin) & 0b1) == PinMode.Output) {
                 return -1;
             }
-            return (read_all_pin(command.input_port0) >> pin) & 0b1;
+            return (read_all_pin(Command.input_port0) >> pin) & 0b1;
         }
     }
 

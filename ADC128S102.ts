@@ -13,7 +13,7 @@ namespace ADC128S102 {
     export function AnalogInitial(): void {
         pins.spiPins(spi_mosi, spi_miso, spi_sck);
         pins.spiFormat(8, 2);
-        pins.spiFrequency(1000000);
+        pins.spiFrequency(14000000);
 
         pins.digitalWritePin(spi_cs, 1);
     }
