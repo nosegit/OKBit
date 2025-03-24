@@ -7,7 +7,8 @@
     "files": [
         "main.ts",
         "README.md",
-        "ADC128S102.ts"
+        "ADC128S102.ts",
+        "PCA9555.ts"
     ],
     "testFiles": [
         "test.ts"
