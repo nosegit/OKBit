@@ -4,14 +4,16 @@ namespace OKbit{
 
     let spi_mosi = 15, spi_miso =  14, spi_sck = 13, spi_cs = 16
 
-    //block="AnalogInitial"
+    // %blockId = ADC_INIT
+    // %block="AnalogInitial"
     export function AnalogInitial(): void{
         pins.spiPins(spi_mosi,spi_miso,spi_sck);
         pins.spiFormat(8,2);
         pins.spiFrequency(16000000);
     }
 
-    //block="AnalogRead $channel"
+    // %blockId = ADC_READ
+    // %block="AnalogRead $channel"
     export function AnalogRead(channel : number): int16{
 
         let control = pins.createBuffer(1)
