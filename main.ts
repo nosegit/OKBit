@@ -36,8 +36,8 @@ namespace OKBit{
      */
     //% block="ADC: ReadVoltage $channel pin"
     //% channel.min=0 channel.max=7
-    export function AnalogReadVoltaage(channel:number):number{
-        return ADC.AnalogReadVolatage(channel);
+    export function AnalogReadVoltage(channel:number):number{
+        return ADC.AnalogReadVoltage(channel);
     }
 
     //% group="GPIO"
