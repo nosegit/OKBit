@@ -9,7 +9,9 @@
         "README.md",
         "ADC128S102.ts",
         "PCA9555.ts",
-        "PCA9685.ts"
+        "PCA9685.ts",
+        "ESP8266_Thinkspeak.ts",
+        "OLED_SSD1306.ts"
     ],
     "testFiles": [
         "test.ts"

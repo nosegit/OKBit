@@ -1,14 +1,14 @@
-namespace OKBit{
+//% block="OKBit: ADC"
+namespace OKBit_ADC{
+
     import ADC = ADC128S102;
-    import GPIO = PCA9555;
-    import PWM =  PCA9685;
 
     //% group="ADC"
     /**
      * Initialize ADC IC
      */
     //% block="ADC: Initialization"
-    export function AnalogInitial(): void{
+    export function AnalogInitial(): void {
         ADC.AnalogInitial();
     }
 
@@ -22,7 +22,7 @@ namespace OKBit{
      */
     //% block="ADC: Read $channel pin"
     //% channel.min=0 channel.max=7
-    export function AnalogRead(channel: number): number{
+    export function AnalogRead(channel: number): number {
         return ADC.AnalogRead(channel);
     }
 
@@ -36,10 +36,15 @@ namespace OKBit{
      */
     //% block="ADC: ReadVoltage $channel pin"
     //% channel.min=0 channel.max=7
-    export function AnalogReadVoltage(channel:number):number{
+    export function AnalogReadVoltage(channel: number): number {
         return ADC.AnalogReadVoltage(channel);
     }
+}
 
+//% block="OKBit: GPIO"
+namespace OKBit_GPIO{
+
+    import GPIO = PCA9555;
     //% group="GPIO"
     /**
      * Initialize GPIO IC
@@ -47,7 +52,7 @@ namespace OKBit{
      * @param I2C address (0x20-0x27)
      */
     //% block="GPIO: Initialization at $address"
-    export function GpioInit(address: GPIO.Address):void{
+    export function GpioInit(address: GPIO.Address): void {
         GPIO.init(address);
     }
 
@@ -60,8 +65,8 @@ namespace OKBit{
      */
     //% block="GPIO: Set $pin pin as $mode"
     //% pin.min=0 pin.max=15
-    export function GpioMode(pin:number,mode:GPIO.PinMode):void{
-        GPIO.config_single_pin(pin,mode);
+    export function GpioMode(pin: number, mode: GPIO.PinMode): void {
+        GPIO.config_single_pin(pin, mode);
     }
 
     //% group="GPIO"
@@ -73,21 +78,25 @@ namespace OKBit{
      */
     //% block="GPIO: Write $pin pin as $value"
     //% pin.min=0 pin.max=15
-    export function GpioWrite(pin:number,value:GPIO.PinOutput):void{
-        GPIO.write_single_pin(pin,value);
+    export function GpioWrite(pin: number, value: GPIO.PinOutput): void {
+        GPIO.write_single_pin(pin, value);
     }
-    
+
     //% group="GPIO"
     /**
      * @param pin pin number (0-15)
-     * 
-     * @returns -1 if OUTPUT mode pin 
      */
     //% block="GPIO: Read $pin pin"
     //% pin.min=0 pin.max=15
-    export function GpioRead(pin:number):number{
+    export function GpioRead(pin: number): number {
         return GPIO.read_single_pin(pin);
     }
+}
+
+//% block="OKBit: PWM"
+namespace OKBit_PWM{
+
+    import PWM = PCA9685;
 
     //% group="PWM"
     /**
@@ -105,7 +114,7 @@ namespace OKBit{
      * @param freq frequency in Hz
      */
     //% block="PWM: Set frequency $freq Hz"
-    export function setPWMFreq(freq: number=50): void {
+    export function setPWMFreq(freq: number = 50): void {
         PWM.setPWMFreq(freq);
     }
 
@@ -121,7 +130,7 @@ namespace OKBit{
     //% on.min=0 on.max=4095
     //% off.min=0 off.max=4095
     export function setPWM(channel: number, on: number, off: number): void {
-        PWM.setPWM(channel,on,off);
+        PWM.setPWM(channel, on, off);
     }
 
     //% group="PWM"
@@ -134,12 +143,12 @@ namespace OKBit{
     //% channel.min=0 channel.max=15
     //% angle.min=0 angle.max=180
     export function setServoAngle(channel: number, angle: number): void {
-            const pulse = Math.map(angle, 0, 180, 102, 512) // ~0.5ms to 2.5ms pulse @50Hz
-            PWM.setPWM(channel, 0, pulse)
+        const pulse = Math.map(angle, 0, 180, 102, 512) // ~0.5ms to 2.5ms pulse @50Hz
+        PWM.setPWM(channel, 0, pulse)
     }
 
-    export enum MotorDirection{
-        Forward=0,
+    export enum MotorDirection {
+        Forward = 0,
         Backward
     }
 
@@ -153,16 +162,16 @@ namespace OKBit{
     //% block="PWM: Set Motor $channel|speed $speed|direction $direction"
     //% channel.min=0 channel.max=3
     //% speed.min=0 speed.max=4095
-    export function SetMortorSpeed(channel: number, speed:number, direction:MotorDirection=MotorDirection.Forward):void{
+    export function SetMortorSpeed(channel: number, speed: number, direction: MotorDirection = MotorDirection.Forward): void {
         let channelA, channelB
-        switch(channel){
-            case 0: channelA = 15;  channelB = 14;  break;
-            case 1: channelA = 13;  channelB = 12;  break;
-            case 2: channelA = 11;  channelB = 10;  break;
-            case 3: channelA = 9;   channelB = 8;   break;
+        switch (channel) {
+            case 0: channelA = 15; channelB = 14; break;
+            case 1: channelA = 13; channelB = 12; break;
+            case 2: channelA = 11; channelB = 10; break;
+            case 3: channelA = 9; channelB = 8; break;
         }
 
-        setPWM(channelA, 0, direction==MotorDirection.Forward ? 0:speed);
-        setPWM(channelB, 0, direction==MotorDirection.Forward ? speed:0);
+        setPWM(channelA, 0, direction == MotorDirection.Forward ? 0 : speed);
+        setPWM(channelB, 0, direction == MotorDirection.Forward ? speed : 0);
     }
 }
