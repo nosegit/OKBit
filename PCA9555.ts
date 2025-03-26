@@ -1,14 +1,14 @@
 namespace PCA9555{
 
     export enum Address{
-        Addr_0x20 = 0x20,
-        Addr_0x21,
-        Addr_0x22,
-        Addr_0x23,
-        Addr_0x24,
-        Addr_0x25,
-        Addr_0x26,
-        Addr_0x27
+        ADDR_0x20 = 0x20,
+        ADDR_0x21,
+        ADDR_0x22,
+        ADDR_0x23,
+        ADDR_0x24,
+        ADDR_0x25,
+        ADDR_0x26,
+        ADDR_0x27
     }
 
     enum Command{
@@ -38,11 +38,13 @@ namespace PCA9555{
     let port0_output = 0x00, port1_output = 0x00;
 
     function write_register(register:number, value:number): void{
+
         let buffer = pins.createBuffer(2);
         buffer[0] = register;
         buffer[1] = value;
 
         pins.i2cWriteBuffer(i2c_address,buffer);
+        
     }
 
     function read_register(register:number):number{
@@ -75,7 +77,9 @@ namespace PCA9555{
     }
 
     export function write_all_pin(port:Command, pin_byte:number):void{
-        write_register(port,pin_byte);
+        while (read_all_pin(port) != pin_byte){
+            write_register(port,pin_byte);
+        }
     }
 
     export function write_single_pin(pin:number, output:PinOutput):void{
@@ -96,17 +100,17 @@ namespace PCA9555{
 
     export function read_single_pin(pin:number):number{
         if(pin < 8){
-            if( ((port0_mode>>pin)&0b1) == PinMode.Output ){
-                return -1;
-            }
+            // if( ((port0_mode>>pin)&0b1) == PinMode.Output ){
+            //     return -1;
+            // }
             return (read_all_pin(Command.input_port0)>>pin)&0b1;
         }
         else{
             pin = pin-8;
-            if (((port1_mode >> pin) & 0b1) == PinMode.Output) {
-                return -1;
-            }
-            return (read_all_pin(Command.input_port0) >> pin) & 0b1;
+            // if (((port1_mode >> pin) & 0b1) == PinMode.Output) {
+            //     return -1;
+            // }
+            return (read_all_pin(Command.input_port1)>>pin)&0b1;
         }
     }
 
