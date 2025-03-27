@@ -1,3 +1,4 @@
+
 //% block="OKBit: ADC"
 namespace OKBit_ADC{
 
@@ -129,7 +130,7 @@ namespace OKBit_PWM{
     //% channel.min=0 channel.max=15
     //% on.min=0 on.max=4095
     //% off.min=0 off.max=4095
-    export function setPWM(channel: number, on: number, off: number): void {
+    export function SetPWM(channel: number, on: number, off: number): void {
         PWM.setPWM(channel, on, off);
     }
 
@@ -142,7 +143,7 @@ namespace OKBit_PWM{
     //% block="PWM: Set Servo $channel|angle $angle"
     //% channel.min=0 channel.max=15
     //% angle.min=0 angle.max=180
-    export function setServoAngle(channel: number, angle: number): void {
+    export function SetServoAngle(channel: number, angle: number): void {
         const pulse = Math.map(angle, 0, 180, 102, 512) // ~0.5ms to 2.5ms pulse @50Hz
         PWM.setPWM(channel, 0, pulse)
     }
@@ -171,7 +172,7 @@ namespace OKBit_PWM{
             case 3: channelA = 9; channelB = 8; break;
         }
 
-        setPWM(channelA, 0, direction == MotorDirection.Forward ? 0 : speed);
-        setPWM(channelB, 0, direction == MotorDirection.Forward ? speed : 0);
+        SetPWM(channelA, 0, direction == MotorDirection.Forward ? 0 : speed);
+        SetPWM(channelB, 0, direction == MotorDirection.Forward ? speed : 0);
     }
 }

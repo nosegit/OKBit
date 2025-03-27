@@ -29,7 +29,7 @@
  * MakeCode extension for ESP8266 Wifi modules and ThinkSpeak website https://thingspeak.com/
  */
 //% block="OKBit: ThingSpeak"
-namespace ESP8266ThingSpeak {
+namespace OKBit_ESP8266ThingSpeak {
 
     let wifi_connected: boolean = false
     let thingspeak_connected: boolean = false

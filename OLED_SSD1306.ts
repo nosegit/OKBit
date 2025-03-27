@@ -27,7 +27,7 @@ declare interface Math {
 }
 
 //% block="OKBit: OLED"
-namespace OLED {
+namespace OKBit_OLED {
     let font: Buffer;
 
 
