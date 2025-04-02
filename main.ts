@@ -53,7 +53,7 @@ namespace OKBit_GPIO{
      * @param I2C address (0x20-0x27)
      */
     //% block="GPIO: Initialization at $address"
-    export function GpioInit(address: GPIO.Address): void {
+    export function GpioInit(address: GPIO.Address=GPIO.Address.ADDR_0x20): void {
         GPIO.init(address);
     }
 
@@ -105,7 +105,7 @@ namespace OKBit_PWM{
      * @param addr I2C address (usually 0x40)
      */
     //% block="PWM: Initialize at address %addr"
-    export function init(addr: PWM.ADDR = PWM.ADDR.ADDR_0x40): void {
+    export function PWMinit(addr: PWM.ADDR = PWM.ADDR.ADDR_0x40): void {
         PWM.init(addr)
     }
 

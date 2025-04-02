@@ -77,9 +77,7 @@ namespace PCA9555{
     }
 
     export function write_all_pin(port:Command, pin_byte:number):void{
-        while (read_all_pin(port) != pin_byte){
             write_register(port,pin_byte);
-        }
     }
 
     export function write_single_pin(pin:number, output:PinOutput):void{

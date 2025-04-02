@@ -360,7 +360,7 @@ namespace OKBit_OLED {
     //% width.defl=128
     //% height.defl=64
     //% weight=9
-    export function init(width: number, height: number) {
+    export function init(width: number=128, height: number=96) {
         command(SSD1306_DISPLAYOFF);
         command(SSD1306_SETDISPLAYCLOCKDIV);
         command(0x80);                                  // the suggested ratio 0x80
