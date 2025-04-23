@@ -1,22 +1,24 @@
+enum HttpMethod {
+    GET,
+    POST,
+    PUT,
+    HEAD,
+    DELETE,
+    PATCH,
+    OPTIONS,
+    CONNECT,
+    TRACE
+}
+
+enum Newline {
+    CRLF,
+    LF,
+    CR
+}
+
 namespace OKBit {
     export namespace Blynk {
-        enum HttpMethod {
-            GET,
-            POST,
-            PUT,
-            HEAD,
-            DELETE,
-            PATCH,
-            OPTIONS,
-            CONNECT,
-            TRACE
-        }
 
-        enum Newline {
-            CRLF,
-            LF,
-            CR
-        }
         
         function writeToSerial(data: string, waitTime: number): void {
             serial.writeString(data + "\u000D" + "\u000A")
