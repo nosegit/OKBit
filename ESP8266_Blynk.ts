@@ -42,7 +42,7 @@ namespace OKBit{
         }
     }
 
-    let pauseBaseValue: number = 1000
+    let pauseBaseValue: number = 10
 
     //% subcategory="Blynk"
     /**
