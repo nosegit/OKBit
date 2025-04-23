@@ -59,11 +59,11 @@ namespace OKBit{
      * Make a serial connection between micro:bit and WiFi:bit.
      */
     //% weight=100
-    //% blockId="wfb_connect" block="connect to WiFi:bit"
+    //% blockId="wfb_connect" block="connect to ESP8266"
     export function connectToWiFiBit(): void {
         serial.redirect(
-            SerialPin.P16,
-            SerialPin.P8,
+            SerialPin.P0,
+            SerialPin.P1,
             BaudRate.BaudRate115200
         )
         basic.pause(100)
