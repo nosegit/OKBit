@@ -56,7 +56,7 @@ namespace OKBit{
 
     //% subcategory="Blynk"
     /**
-     * Make a serial connection between micro:bit and WiFi:bit.
+     * Make a serial connection between micro:bit and ESP8266.
      */
     //% weight=100
     //% blockId="wfb_connect" block="connect to ESP8266"
