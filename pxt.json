@@ -11,13 +11,15 @@
         "PCA9555.ts",
         "PCA9685.ts",
         "ESP8266_Thinkspeak.ts",
-        "OLED_SSD1306.ts"
+        "OLED_SSD1306.ts",
+        "PID.ts",
+        "ESP8266_Blynk.ts"
     ],
     "testFiles": [
         "test.ts"
     ],
     "targetVersions": {
-        "target": "7.0.57",
+        "target": "7.0.61",
         "targetId": "microbit"
     },
     "supportedTargets": [

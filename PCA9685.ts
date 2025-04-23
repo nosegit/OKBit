@@ -1,11 +1,8 @@
-namespace PCA9685 {
-    const MODE1 = 0x00
-    const PRESCALE = 0xFE
-    const LED0_ON_L = 0x06
-    const ALL_LED_OFF_H = 0xFD
-    let i2cAddr = 0x40
 
-    export enum ADDR{
+
+namespace PCA9685 {
+
+    export enum ADDR {
         ADDR_0x40 = 0x40,
         ADDR_0x41,
         ADDR_0x42,
@@ -40,11 +37,17 @@ namespace PCA9685 {
         ADDR_0x5F,
     }
 
+    const MODE1 = 0x00;
+    const  PRESCALE = 0xFE;
+    const  LED0_ON_L = 0x06;
+    const  ALL_LED_OFF_H = 0xFD;
+    let i2cAddr:ADDR;
+    
     /**
      * Initialize the PCA9685
      * @param addr I2C address (usually 0x40)
      */
-    export function init(addr: ADDR = ADDR.ADDR_0x40): void {
+    export function init(addr : ADDR = ADDR.ADDR_0x40): void {
         i2cAddr = addr
         writeRegister(MODE1, 0x00)
         setPWMFreq(50)

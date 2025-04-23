@@ -134,7 +134,7 @@ namespace OKBit{
          * @param angle 0–180°
          */
         //% block="PWM: Set Servo $channel|angle $angle"
-        //% channel.min=0 channel.max=15
+        //% channel.min=0 channel.max=7
         //% angle.min=0 angle.max=180
         export function SetServoAngle(channel: number, angle: number): void {
             const pulse = Math.map(angle, 0, 180, 102, 512) // ~0.5ms to 2.5ms pulse @50Hz
