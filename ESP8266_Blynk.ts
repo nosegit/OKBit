@@ -7,30 +7,25 @@
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace OKBit {
-
-    enum HttpMethod {
-        GET,
-        POST,
-        PUT,
-        HEAD,
-        DELETE,
-        PATCH,
-        OPTIONS,
-        CONNECT,
-        TRACE
-    }
-
-    enum Newline {
-        CRLF,
-        LF,
-        CR
-    }
-
-    /**
-     * WiFi:bit commands.
-     */
     export namespace Blynk {
+        enum HttpMethod {
+            GET,
+            POST,
+            PUT,
+            HEAD,
+            DELETE,
+            PATCH,
+            OPTIONS,
+            CONNECT,
+            TRACE
+        }
 
+        enum Newline {
+            CRLF,
+            LF,
+            CR
+        }
+        
         function writeToSerial(data: string, waitTime: number): void {
             serial.writeString(data + "\u000D" + "\u000A")
             if (waitTime > 0) {
@@ -245,6 +240,5 @@ namespace OKBit {
         export function newline(): string {
             return "\u000D" + "\u000A"
         }
-
     }
 }
