@@ -1,7 +1,5 @@
-
-
 namespace OKBit {
-    enum HttpMethod {
+    export enum HttpMethod {
         GET,
         POST,
         PUT,
@@ -13,7 +11,7 @@ namespace OKBit {
         TRACE
     }
 
-    enum Newline {
+    export enum Newline {
         CRLF,
         LF,
         CR
@@ -43,7 +41,6 @@ namespace OKBit {
         /**
          * Make a serial connection between micro:bit and WiFi:bit.
          */
-        //% weight=100
         //% blockId="wfb_connect" block="connect to ESP8266"
         export function connectToESP8266(): void {
             serial.redirect(
@@ -64,7 +61,6 @@ namespace OKBit {
          * @param ssid SSID, eg: "SSID"
          * @param key Key, eg: "key"
          */
-        //% weight=99
         //% blockId="wfb_wifi_on" block="connect to WiFi network %ssid, %key"
         export function connectToWiFiNetwork(ssid: string, key: string): void {
             // Connect to AP:
@@ -75,7 +71,6 @@ namespace OKBit {
         /**
          * Disconnect from WiFi network.
          */
-        //% weight=98
         //% blockId="wfb_wifi_off" block="disconnect from WiFi network"
         export function disconnectFromWiFiNetwork(): void {
             // Disconnect from AP:
@@ -88,7 +83,6 @@ namespace OKBit {
          * @param command AT command, eg: "AT"
          * @param waitTime Wait time after execution, eg: 1000
          */
-        //% weight=97
         //% blockId="wfb_at" block="execute AT command %command and then wait %waitTime ms"
         export function executeAtCommand(command: string, waitTime: number): void {
             writeToSerial(command, waitTime)
@@ -104,7 +98,6 @@ namespace OKBit {
          * @param headers Headers
          * @param body Body
          */
-        //% weight=96
         //% blockId="wfb_http" block="execute HTTP method %method|host: %host|port: %port|path: %urlPath||headers: %headers|body: %body"
         export function executeHttpMethod(method: HttpMethod, host: string, port: number, urlPath: string, headers?: string, body?: string): void {
             let myMethod: string
@@ -145,7 +138,6 @@ namespace OKBit {
          * @param pin Pin, eg: "A0"
          * @param auth_token Token, eg: "14dabda3551b4dd5ab46464af582f7d2"
          */
-        //% weight=95
         //% blockId="wfb_blynk_write" block="Blynk: write %value to %pin, token is %auth_token"
         export function writeBlynkPinValue(value: string, pin: string, auth_token: string): void {
             executeHttpMethod(
@@ -162,7 +154,6 @@ namespace OKBit {
          * @param pin Pin, eg: "A0"
          * @param auth_token Token, eg: "14dabda3551b4dd5ab46464af582f7d2"
          */
-        //% weight=94
         //% blockId="wfb_blynk_read" block="Blynk: read %pin, token is %auth_token"
         export function readBlynkPinValue(pin: string, auth_token: string): string {
             executeAtCommand("ATE0", 1000)
@@ -189,7 +180,6 @@ namespace OKBit {
          * @param pin Pin, eg: "V1"
          * @param auth_token Token, eg: "BzMEzpZ9Bud9ZUXZoJVEkbfneCavDVDx"
          */
-        //% weight=93
         //% blockId="wfb_blynk_iot_write" block="Blynk IoT: write %value to %pin, token is %auth_token"
         export function writeBlynkIoTPinValue(value: string, pin: string, auth_token: string): void {
             executeHttpMethod(
@@ -206,7 +196,6 @@ namespace OKBit {
          * @param pin Pin, eg: "V1"
          * @param auth_token Token, eg: "BzMEzpZ9Bud9ZUXZoJVEkbfneCavDVDx"
          */
-        //% weight=92
         //% blockId="wfb_blynk_iot_read" block="Blynk IoT: read %pin, token is %auth_token"
         export function readBlynkIoTPinValue(pin: string, auth_token: string): string {
             executeAtCommand("ATE0", 1000)
@@ -230,7 +219,6 @@ namespace OKBit {
         /**
          * Line separator. It's used when headers or body are multiline.
          */
-        //% weight=91
         //% blockId="wfb_crlf" block="CRLF"
         export function newline(): string {
             return "\u000D" + "\u000A"
