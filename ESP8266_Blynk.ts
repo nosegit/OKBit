@@ -60,7 +60,7 @@ namespace OKBit{
      */
     //% weight=100
     //% blockId="wfb_connect" block="connect to ESP8266"
-    export function connectToWiFiBit(): void {
+    export function connectToEsp8266(): void {
         serial.redirect(
             SerialPin.P0,
             SerialPin.P1,
