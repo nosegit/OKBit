@@ -1,22 +1,23 @@
-enum HttpMethod {
-    GET,
-    POST,
-    PUT,
-    HEAD,
-    DELETE,
-    PATCH,
-    OPTIONS,
-    CONNECT,
-    TRACE
-}
 
-enum Newline {
-    CRLF,
-    LF,
-    CR
-}
 
 namespace OKBit {
+    enum HttpMethod {
+        GET,
+        POST,
+        PUT,
+        HEAD,
+        DELETE,
+        PATCH,
+        OPTIONS,
+        CONNECT,
+        TRACE
+    }
+
+    enum Newline {
+        CRLF,
+        LF,
+        CR
+    }
     export namespace Blynk {
 
         
