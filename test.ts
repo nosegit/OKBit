@@ -4,8 +4,8 @@ OKBit.GPIO.GpioInit();
 OKBit.PWM.PWMinit();
 OKBit.OLED.init();
 
-OKBit.PWM.SetMortorSpeed(0, 500, OKBit.PWM.MotorDirection.Forward)
-OKBit.PWM.SetMortorSpeed(1, 500, OKBit.PWM.MotorDirection.Backward)
+OKBit.PWM.SetMotorSpeedRaw(0, 500, OKBit.PWM.MotorDirection.Forward)
+OKBit.PWM.SetMotorSpeedRaw(1, 500, OKBit.PWM.MotorDirection.Backward)
 
 
 basic.forever(function() {

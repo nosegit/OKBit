@@ -7,6 +7,7 @@ namespace OKBit{
          * Initialize ADC IC
          */
         //% block="ADC: Initialization"
+        //% weight=99
         export function AnalogInitial(): void {
             _ADC.AnalogInitial();
         }
@@ -21,6 +22,7 @@ namespace OKBit{
          */
         //% block="ADC: Read $channel pin"
         //% channel.min=0 channel.max=7
+        //% group="ADVANCE"
         export function AnalogRead(channel: number): number {
             return _ADC.AnalogRead(channel);
         }
@@ -48,6 +50,7 @@ namespace OKBit{
          * @param I2C address (0x20-0x27)
          */
         //% block="GPIO: Initialization at $address"
+        //% weight=99
             export function GpioInit(address: _GPIO.Address = _GPIO.Address.ADDR_0x20): void {
             _GPIO.init(address);
         }
@@ -98,6 +101,7 @@ namespace OKBit{
          * @param addr I2C address (usually 0x40)
          */
         //% block="PWM: Initialize at address %addr"
+        //% weight=99
         export function PWMinit(addr: _PWM.ADDR = _PWM.ADDR.ADDR_0x40): void {
             _PWM.init(addr)
         }
@@ -108,6 +112,7 @@ namespace OKBit{
          * @param freq frequency in Hz
          */
         //% block="PWM: Set frequency $freq Hz"
+        //% group="ADVANCE"
         export function setPWMFreq(freq: number = 50): void {
             _PWM.setPWMFreq(freq);
         }
@@ -115,7 +120,7 @@ namespace OKBit{
         //% subcategory="PWM"
         /**
          * Set PWM pulse for a channel
-         * @param channel 0–7
+         * @param channel 0–15
          * @param on 0–4095
          * @param off 0–4095
          */
@@ -123,8 +128,22 @@ namespace OKBit{
         //% channel.min=0 channel.max=15
         //% on.min=0 on.max=4095
         //% off.min=0 off.max=4095
-        export function SetPWM(channel: number, on: number, off: number): void {
+        //% group="ADVANCE"
+        export function SetPWMRaw(channel: number, on: number, off: number): void {
             _PWM.setPWM(channel, on, off);
+        }
+
+        //% subcategory="PWM"
+        /**
+         * Set PWM pulse for a channel
+         * @param channel 0–15
+         * @param duty 0–100
+         */
+        //% block="PWM: Set output channel $channel|duty $duty"
+        //% channel.min=0 channel.max=15
+        //% duty.min=0 duty.max=100
+        export function SetPWM(channel: number, duty: number): void {
+            SetPWMRaw(channel,0,duty*4095/100);
         }
 
         //% subcategory="PWM"
@@ -148,6 +167,20 @@ namespace OKBit{
 
         //% subcategory="PWM"
         /**
+         * Set motor speed (0–100)
+         * @param channel 0–3
+         * @param speed 0–100
+         * @param direction MotorDirection.Forward/Backward
+         */
+        //% block="PWM: Set Motor $channel|speed $speed|direction $direction"
+        //% channel.min=0 channel.max=3
+        //% speed.min=0 speed.max=100
+        export function SetMotorSpeed(channel: number, speed: number, direction: MotorDirection = MotorDirection.Forward): void {
+            SetMotorSpeedRaw(channel,speed*4095/100,direction);
+        }
+
+        //% subcategory="PWM"
+        /**
          * Set motor speed (0–4095)
          * @param channel 0–3
          * @param speed 0–4095
@@ -156,7 +189,8 @@ namespace OKBit{
         //% block="PWM: Set Motor $channel|speed $speed|direction $direction"
         //% channel.min=0 channel.max=3
         //% speed.min=0 speed.max=4095
-        export function SetMortorSpeed(channel: number, speed: number, direction: MotorDirection = MotorDirection.Forward): void {
+        //% group="ADVANCE"
+        export function SetMotorSpeedRaw(channel: number, speed: number, direction: MotorDirection = MotorDirection.Forward): void {
             let channelA, channelB
             switch (channel) {
                 case 0: channelA = 15; channelB = 14; break;
@@ -165,8 +199,8 @@ namespace OKBit{
                 case 3: channelA = 9; channelB = 8; break;
             }
 
-            SetPWM(channelA, 0, direction == MotorDirection.Forward ? 0 : speed);
-            SetPWM(channelB, 0, direction == MotorDirection.Forward ? speed : 0);
+            SetPWMRaw(channelA, 0, direction == MotorDirection.Forward ? 0 : speed);
+            SetPWMRaw(channelB, 0, direction == MotorDirection.Forward ? speed : 0);
         }
     }
 }

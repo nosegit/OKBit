@@ -105,6 +105,7 @@ namespace OKBit{
      */
     //% weight=97
     //% blockId="wfb_at" block="execute AT command %command and then wait %waitTime ms"
+    //% group="ADVANCE"
     export function executeAtCommand(command: string, waitTime: number): void {
         writeToSerial(command, waitTime)
     }
@@ -121,6 +122,7 @@ namespace OKBit{
      */
     //% weight=96
     //% blockId="wfb_http" block="execute HTTP method %method|host: %host|port: %port|path: %urlPath||headers: %headers|body: %body"
+    //% group="ADVANCE"
     export function executeHttpMethod(method: HttpMethod, host: string, port: number, urlPath: string, headers?: string, body?: string): void {
         let myMethod: string
         switch (method) {
@@ -162,6 +164,7 @@ namespace OKBit{
      */
     //% weight=95
     //% blockId="wfb_blynk_write" block="Blynk: write %value to %pin, token is %auth_token"
+    //% group="ADVANCE"
     export function writeBlynkPinValue(value: string, pin: string, auth_token: string): void {
         executeHttpMethod(
             HttpMethod.GET,
@@ -179,6 +182,7 @@ namespace OKBit{
      */
     //% weight=94
     //% blockId="wfb_blynk_read" block="Blynk: read %pin, token is %auth_token"
+    //% group="ADVANCE"
     export function readBlynkPinValue(pin: string, auth_token: string): string {
         executeAtCommand("ATE0", 1000)
         let response: string
@@ -247,6 +251,7 @@ namespace OKBit{
      */
     //% weight=91
     //% blockId="wfb_crlf" block="CRLF"
+    //% group="ADVANCE"
     export function newline(): string {
         return "\u000D" + "\u000A"
     }
