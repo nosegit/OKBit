@@ -24,6 +24,9 @@ namespace OKBit{
         //% channel.min=0 channel.max=7
         //% group="ADVANCE"
         export function AnalogRead(channel: number): number {
+            if(channel >= 5){
+                return _ADC.AnalogRead(Math.abs(7-channel)+5);
+            }
             return _ADC.AnalogRead(channel);
         }
 
@@ -38,7 +41,7 @@ namespace OKBit{
         //% block="ADC: ReadVoltage $channel pin"
         //% channel.min=0 channel.max=7
         export function AnalogReadVoltage(channel: number): number {
-            return _ADC.AnalogReadVoltage(channel);
+            return AnalogRead(channel)/4096*3.3;
         }
     }
     export namespace GPIO{
